@@ -7,30 +7,34 @@ import typescript from "@rollup/plugin-typescript";
 export default {
 	input: 'lib/index.ts',
 	plugins: [
-		typescript(),
-		alias({
-			entries: {
-				"uuid": path.resolve("./node_modules/uuid/dist/esm-node/index.js"),
-			}
-		}),
-		nodeResolve({
-			preferBuiltins: true,
-		}),
-		commonjs({
-			transformMixedEsModules: true,
-			ignore: [
-				'memcpy' // optional dep of bytebuffer
-			],
-			include: ["node_modules/**"],
-			exclude: ["lib/**"]
-		}),
+	  typescript(),
+	  alias({
+		entries: {
+		  "uuid": path.resolve("./node_modules/uuid/dist/esm-node/index.js"),
+		}
+	  }),
+	  nodeResolve({
+		preferBuiltins: true,
+	  }),
+	  commonjs({
+		transformMixedEsModules: true,
+		ignore: [
+		  'memcpy'
+		],
+		include: ["node_modules/**"],
+		exclude: ["lib/**"]
+	  }),
 	],
 	output: [
-		{
-			dir: 'dist',
-			format: 'esm',
-			sourcemap: true,
-			name: 'oxmsg'
-		}
-	],
-}
+	  {
+		file: 'dist/index.mjs',
+		format: 'esm',
+		sourcemap: true
+	  },
+	  {
+		file: 'dist/index.js',
+		format: 'cjs',
+		sourcemap: true
+	  }
+	]
+  }
