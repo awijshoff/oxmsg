@@ -25,10 +25,7 @@
     "noUnusedParameters": false,
     "noEmit": true
   },
-  "include": [
-    "lib",
-    "types"
-  ],
+ "include": ["lib/**/*", "types/**/*"],
   "exclude": [
     "node_modules",
     "dist",
