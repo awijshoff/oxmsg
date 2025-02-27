@@ -2,7 +2,8 @@ import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import alias from '@rollup/plugin-alias'
 import path from 'path'
-import typescript from "@rollup/plugin-typescript";
+import typescript from "@rollup/plugin-typescript"
+import json from '@rollup/plugin-json'
 
 export default {
 	input: 'lib/index.ts',
@@ -24,6 +25,7 @@ export default {
 		include: ["node_modules/**"],
 		exclude: ["lib/**"]
 	  }),
+	  json(), // Add this for iconv-lite JSON files
 	],
 	output: [
 	  {
@@ -37,4 +39,4 @@ export default {
 		sourcemap: true
 	  }
 	]
-  }
+}
