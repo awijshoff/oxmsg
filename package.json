@@ -59,6 +59,5 @@
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.5.4"
   },
-
   "types": "dist/types"
 }
