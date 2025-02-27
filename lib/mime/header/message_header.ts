@@ -6,7 +6,7 @@ import {decode as decodeRfc2047} from "./rfc2047.js"
 import type {ContentDisposition, ContentType} from "./header_field_parser.js"
 import {HeaderFieldParser} from "./header_field_parser.js"
 
-type HeaderDict = Record<string, Array<string>>
+export type HeaderDict = Record<string, Array<string>>
 
 export class MessageHeader {
     /**    Contains all the headers as a map */
