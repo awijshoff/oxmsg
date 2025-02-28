@@ -1,6 +1,5 @@
-import fs from "fs";
-
-import {Attachment, Email} from "../dist/index.js";
+const fs = require("fs");
+const { Attachment, Email } = require("../dist/index");
 
 const email = new Email()
 const attachment = new Attachment(Uint8Array.from(fs.readFileSync('./test/canvas.png')), 'canvas.png')

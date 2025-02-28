@@ -16,7 +16,7 @@ import {
 import {Receiving} from "./address/receiving.js"
 import {isNotNullOrWhitespace, isNullOrEmpty, isNullOrWhiteSpace, localeId, stringToUtf8Array} from "./utils/utils.js"
 import {PropertyTags} from "./property_tags.js"
-import type {MessageHeader} from "./mime/header/message_header.js"
+import {MessageHeader} from "./mime/header/message_header.js"
 import {Sender} from "./address/sender.js"
 import {Representing} from "./address/representing.js"
 import {Attachments} from "./attachments.js"
@@ -26,6 +26,7 @@ import {Strings} from "./helpers/strings.js"
 import {ReportTag} from "./structures/report_tag.js"
 import {compress} from "./helpers/rtf_compressor.js"
 import {Attachment} from "./attachment.js"
+import {HeaderParser} from "./mime/header/header_parser.js"
 
 // \D => not digit
 const subjectPrefixRegex = /^(\D{1,3}:\s)(.*)$/
@@ -170,13 +171,34 @@ export class Email extends Message {
 
     /**
      * the raw transport headers
-     * @param headers
+     * @param headers Raw header text
      */
     headers(headers: string): Email {
-        this.transportMessageHeadersText = headers
-        // TODO: parse the headers into a MessageHeader, if we think we need to
-        // this.transportMessageHeaders = new MessageHeader(parseMessageHeaders(headers))
-        return this
+        this.transportMessageHeadersText = headers;
+        
+        // Parse the headers into a MessageHeader object
+        const parsedHeaders = HeaderParser.parseHeaders(headers);
+        this.transportMessageHeaders = new MessageHeader(parsedHeaders);
+
+        // Set message properties from headers if not already set
+        if (this.transportMessageHeaders) {
+            // Set Internet Message ID if not manually set
+            if (!this.internetMessageId && this.transportMessageHeaders.messageId) {
+                this.internetMessageId = this.transportMessageHeaders.messageId;
+            }
+
+            // Set References if not manually set
+            if (!this.internetReferences && this.transportMessageHeaders.references.length > 0) {
+                this.internetReferences = this.transportMessageHeaders.references.join(' ');
+            }
+
+            // Set In-Reply-To if not manually set
+            if (!this.inReplyToId && this.transportMessageHeaders.inReplyTo.length > 0) {
+                this.inReplyToId = this.transportMessageHeaders.inReplyTo[0];
+            }
+        }
+
+        return this;
     }
 
     msg(): Uint8Array {
