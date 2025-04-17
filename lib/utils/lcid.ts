@@ -1,5 +1,5 @@
 export enum Locale {
-    zh_CHS = 4,
+    zh_Hans = 4,
     ar_SA = 1025,
     bg_BG = 1026,
     ca_ES = 1027,
@@ -9,7 +9,7 @@ export enum Locale {
     de_DE = 1031,
     el_GR = 1032,
     en_US = 1033,
-    // es_ES = 1034, // Spanish can be one of two LCIDs, but objects can't have duplicate keys :|
+    // es_ES = 1034, // Spanish can be one of two LCIDs, but objects can't have duplicate keys
     fi_FI = 1035,
     fr_FR = 1036,
     he_IL = 1037,
@@ -201,4 +201,26 @@ export enum Locale {
     es_PR = 20490,
     es_US = 21514,
     zh_CHT = 31748,
+}
+
+/**
+ * Convert a LCID to BCP 47 language tag
+ * @param lcid The Windows LCID
+ * @returns The corresponding BCP 47 language tag (e.g. "en-US")
+ */
+export function lcidToBCP47(lcid: number): string {
+    const locale = Object.entries(Locale).find(([_, value]) => value === lcid);
+    if (!locale) return "en-US"; // Default fallback
+    return locale[0].replace(/_/g, '-');
+}
+
+/**
+ * Convert a BCP 47 language tag to Windows LCID
+ * @param bcp47 The BCP 47 language tag (e.g. "en-US")
+ * @returns The corresponding Windows LCID
+ */
+export function bcp47ToLCID(bcp47: string): number {
+    const normalizedTag = bcp47.replace(/-/g, '_');
+    const lcid = (Locale as any)[normalizedTag];
+    return lcid ?? Locale.en_US; // Default fallback
 }
