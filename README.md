@@ -2,6 +2,39 @@
 
 write Microsoft .msg Outlook Item files.
 
+## Usage
+
+Clone the repository and navigate to the project directory:
+
+```sh
+git clone https://github.com/awijshoff/oxmsg.git
+cd oxmsg
+```
+
+Install dependencies and build the project:
+
+```sh
+npm install
+```
+
+```
+npm run build
+```
+
+Use in your codebase:
+
+```js
+const fs = require('fs');
+const oxmsg = require('@tutao/oxmsg'); // Original repository: https://github.com/tutao/oxmsg
+
+let email = new oxmsg.Email(true, false);
+email.subject('Test Subject').to('test@localhost.local');
+email.bodyHtml('<h1>Test</h1><p>This is a test email.</p>');
+
+const content = email.msg();
+fs.writeFileSync('./testMessage.msg', content);
+```
+
 ## MSG Outlook Items
 These are compound files in cfb format, which is a simplified 
 filesystem-in-a-file with directories (called storages) and files (called streams).
