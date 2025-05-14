@@ -11,7 +11,7 @@ git clone https://github.com/awijshoff/oxmsg.git
 cd oxmsg
 ```
 
-Install dependencies and build the project:
+Install dependencies, build the project and install from the local folder:
 
 ```sh
 npm install
@@ -19,6 +19,11 @@ npm install
 
 ```
 npm run build
+```
+
+
+```
+npm install ./oxmsg
 ```
 
 Use in your codebase:
