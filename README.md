@@ -17,12 +17,13 @@ Install dependencies, build the project and install from the local folder:
 npm install
 ```
 
-```
+```sh
 npm run build
 ```
 
 
-```
+```sh
+cd ..
 npm install ./oxmsg
 ```
 
