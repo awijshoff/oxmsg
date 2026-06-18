@@ -1,5 +1,5 @@
 {
-  "name": "@tutao/oxmsg",
+  "name": "@sgvictorino/oxmsg-commonjs",
   "version": "0.1.1",
   "description": "js library for Microsoft Outlook Item files (.msg)",
   "main": "dist/index.js",
