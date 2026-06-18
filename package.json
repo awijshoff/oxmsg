@@ -13,7 +13,7 @@
   "scripts": {
     "build": "rollup --config rollup.config.js",
     "exec:nodejs": "node examples/node.js",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
     "clean": "rimraf ./dist ./build",
     "types": "types/index.d.ts",
     "test": "rollup --config rollup_test.config.js && node 'build/test/index.js'"
