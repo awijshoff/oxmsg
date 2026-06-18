@@ -8,7 +8,10 @@
     ".": {
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
-    }
+     },
+    "./dist/index": "./dist/index.js",
+    "./dist/index.js": "./dist/index.js",
+    "./dist/*": "./dist/*"
   },
   "scripts": {
     "build": "rollup --config rollup.config.js",
