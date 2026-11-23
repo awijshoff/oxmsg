@@ -2837,6 +2837,11 @@ export const PropertyTags: Record<string, PropertyTag> = Object.freeze({
         id: 0x4030,
         type: PropertyType.PT_UNICODE,
     },
+    // Contains the SMTP address of the messaging user represented by the sender.
+    PR_SENT_REPRESENTING_SMTP_ADDRESS_W: {
+        id: 0x5d02, // PidTagSentRepresentingSmtpAddress
+        type: PropertyType.PT_UNICODE,
+    },
     // Indicates the type of Message object to which this attachment is linked.
     // Must be 0, unless overridden by other protocols that extend the
     // Message and Attachment Object Protocol as noted in [MS-OXCMSG].

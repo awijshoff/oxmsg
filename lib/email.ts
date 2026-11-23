@@ -91,6 +91,19 @@ export class Email extends Message {
         return this
     }
 
+    /**
+     * Sets the mailbox the message is sent on behalf of.
+     * @param address SMTP address of the mailbox
+     * @param displayName display name of the mailbox
+     * @param x500Dn LegacyExchangeDN of the mailbox, needed for "Send on Behalf" (see Representing)
+     */
+    representing(address: string, displayName?: string, x500Dn?: string): Email {
+        this._representing = x500Dn
+            ? new Representing(x500Dn, displayName || address, "EX", address)
+            : new Representing(address, displayName || "", "SMTP", address)
+        return this
+    }
+
     bodyHtml(html: string): Email {
         this._bodyHtml = html
         return this
@@ -388,7 +401,7 @@ export class Email extends Message {
 
         this._topLevelProperties.addProperty(PropertyTags.PR_ICON_INDEX, this.iconIndex)
 
-        if (!!this._sender) this._sender.writeProperties(this._topLevelProperties)
+        if (!!this._sender) this._sender.writeProperties(this._topLevelProperties, !this._representing)
         if (!!this._receiving) this._receiving.writeProperties(this._topLevelProperties)
         if (!!this._receivingRepresenting) this._receivingRepresenting.writeProperties(this._topLevelProperties)
         if (!!this._representing) this._representing.writeProperties(this._topLevelProperties)

@@ -24,7 +24,8 @@ export class Sender extends Address {
         this._senderIsCreator = senderIsCreator
     }
 
-    writeProperties(stream: TopLevelProperties) {
+    /** @param writeRepresentingName false if a Representing writes PR_SENT_REPRESENTING_NAME */
+    writeProperties(stream: TopLevelProperties, writeRepresentingName: boolean = true) {
         if (this._senderIsCreator) {
             stream.addProperty(PropertyTags.PR_CreatorEmailAddr_W, this.email)
             stream.addProperty(PropertyTags.PR_CreatorSimpleDispName_W, this.displayName)
@@ -35,7 +36,7 @@ export class Sender extends Address {
         stream.addProperty(PropertyTags.PR_SENDER_ENTRYID, senderEntryId.toByteArray())
         stream.addProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, this.email)
         stream.addProperty(PropertyTags.PR_SENDER_NAME_W, this.displayName)
-        stream.addProperty(PropertyTags.PR_SENT_REPRESENTING_NAME_W, this.displayName)
+        if (writeRepresentingName) stream.addProperty(PropertyTags.PR_SENT_REPRESENTING_NAME_W, this.displayName)
         stream.addProperty(PropertyTags.PR_SENDER_ADDRTYPE_W, this.addressType)
     }
 }
